@@ -1,5 +1,6 @@
+import requests
 import datetime
-import urllib.request
+import urllib
 import python_package
 from multiprocessing import Pool
 
@@ -107,8 +108,8 @@ def channel_data(input='https://www.youtube.com/c/BudnikiPokrzywi%C5%84ski'):
 
         for video_id in filtered_list:
             url = f"https://www.youtube.com/watch?v={video_id['contentDetails']['videoId']}"
-            response = urllib.request.urlopen(url)
-            if "paidContentOverlayRenderer" in str(response.read()):
+            response = requests.get(url)
+            if "paidContentOverlayRenderer" in response.text:
                 videos_ads_list.append(True)
             else:
                 videos_ads_list.append(False)
