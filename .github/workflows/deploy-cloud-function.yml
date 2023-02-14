@@ -29,9 +29,9 @@ jobs:
         set +e
         output=$(gcloud functions describe channel-details --region=us-central1 2>&1)
         if [[ $output == *"not found"* ]]; then
-          gcloud functions create channel-details --memory=512MB --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point channel_data
+          gcloud functions create channel-details --timeout=300s --memory=512MB --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point channel_data
         fi
         set -e
     - name: Deploy to Google Cloud
       run: |
-        gcloud functions deploy channel-details --memory=512MB --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point channel_data
+        gcloud functions deploy channel-details --timeout=300s --memory=512MB --verbosity=debug --runtime python37 --trigger-http --allow-unauthenticated --entry-point channel_data
