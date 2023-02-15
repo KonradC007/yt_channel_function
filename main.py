@@ -62,8 +62,7 @@ def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
         print(url)
 
         # Get page http
-        response = requests.get(url, cookies={'CONSENT': 'YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(
-            100, 999))})
+        response = requests.get(url, cookies={'CONSENT': 'YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(100, 999))})
         http_string = response.text
 
         # Get id from http
