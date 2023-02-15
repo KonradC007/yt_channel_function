@@ -54,7 +54,7 @@ def avg(lst):
     return sum(lst) / len(lst)
 
 
-def channel_data(input='https://www.youtube.com/c/BudnikiPokrzywi%C5%84ski'):
+def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
 
     if input != "":
         url = input
