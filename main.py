@@ -1,9 +1,8 @@
 import requests
 import datetime
-import urllib
 import python_package
 from multiprocessing import Pool
-
+import random
 
 def gender_summary_generator(names):
     total_count = len(names)
@@ -61,8 +60,9 @@ def channel_data(input='https://www.youtube.com/c/BudnikiPokrzywi%C5%84ski'):
         url = input
 
         # Get page http
-        response = urllib.request.urlopen(url)
-        http_string = response.read().decode("utf8")
+        response = requests.get(url, cookies={'CONSENT': 'YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(
+            100, 999))})
+        http_string = response.text
 
         # Get id from http
         channel_id = find_between(http_string, 'href="https://www.youtube.com/channel/', '"')
