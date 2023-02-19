@@ -113,8 +113,12 @@ def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
 
         for video_id in filtered_list:
             url = f"https://www.youtube.com/watch?v={video_id['contentDetails']['videoId']}"
-            response = requests.get(url)
-            if "paidContentOverlayRenderer" in response.text:
+            cookie = 'CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(100, 999))
+            req = urllib.request.Request(url, headers={'Cookie': cookie})
+            response = urllib.request.urlopen(req)
+            http_bytes = response.read()
+            http_string = http_bytes.decode('utf-8')
+            if "paidContentOverlayRenderer" in http_string:
                 videos_ads_list.append(True)
             else:
                 videos_ads_list.append(False)
@@ -132,12 +136,13 @@ def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
             for comment in vid_comments['items']:
                 comment_author.append(comment['snippet']['topLevelComment']['snippet']['authorDisplayName'])
 
-        comment_author = list(set(comment_author))
+        #comment_author = list(set(comment_author))
 
-        gender_list = guess_gender_parallel(comment_author)
 
-        gender_list_filtered = [n for n in gender_list if n['gender'] != 'unknown']
-        male_percentage, female_percentage = gender_summary_generator(names=gender_list_filtered)
+        #gender_list = guess_gender_parallel(comment_author)
+
+        #gender_list_filtered = [n for n in gender_list if n['gender'] != 'unknown']
+        male_percentage, female_percentage = 1,1#gender_summary_generator(names=gender_list_filtered)
 
         for video in data_videos['items']:
             videos_views_list.append(int(video['statistics']['viewCount']))
