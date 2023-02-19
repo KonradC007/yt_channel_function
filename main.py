@@ -3,6 +3,7 @@ import datetime
 import python_package
 from multiprocessing import Pool
 import random
+import urllib.request
 
 def gender_summary_generator(names):
     total_count = len(names)
@@ -62,8 +63,11 @@ def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
         print(url)
 
         # Get page http
-        response = requests.get(url, cookies={'CONSENT': 'YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(100, 999))})
-        http_string = response.text
+        cookie = 'CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(100, 999))
+        req = urllib.request.Request(url, headers={'Cookie': cookie})
+        response = urllib.request.urlopen(req)
+        http_bytes = response.read()
+        http_string = http_bytes.decode('utf-8')
 
         # Get id from http
         channel_id = find_between(http_string, 'href="https://www.youtube.com/channel/', '"')
