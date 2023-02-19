@@ -27,11 +27,11 @@ jobs:
     - name: Create Cloud Function if it does not exist
       run: |
         set +e
-        output=$(gcloud functions describe channel-details --region=us-central1 2>&1)
+        output=$(gcloud functions describe channel-details --region=europe-west1 2>&1)
         if [[ $output == *"not found"* ]]; then
-          gcloud functions create channel-details --timeout=300s --memory=512MB --verbosity=debug --runtime python39 --trigger-http --allow-unauthenticated --entry-point channel_data
+          gcloud functions create channel-details --timeout=300s --memory=512MB --verbosity=debug --runtime python39 --trigger-http --allow-unauthenticated --entry-point channel_data --region=europe-west1
         fi
         set -e
     - name: Deploy to Google Cloud
       run: |
-        gcloud functions deploy channel-details --timeout=300s --memory=512MB --verbosity=debug --runtime python39 --trigger-http --allow-unauthenticated --entry-point channel_data
+        gcloud functions deploy channel-details --timeout=300s --memory=512MB --verbosity=debug --runtime python39 --trigger-http --allow-unauthenticated --entry-point channel_data --region=europe-west1
