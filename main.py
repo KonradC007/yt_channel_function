@@ -55,7 +55,7 @@ def avg(lst):
     return sum(lst) / len(lst)
 
 
-def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
+def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw'):
 
     if input != "":
         url = input
@@ -63,11 +63,15 @@ def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
         print(url)
 
         # Get page http
-        cookie = 'CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(100, 999))
-        req = urllib.request.Request(url, headers={'Cookie': cookie})
-        response = urllib.request.urlopen(req)
-        http_bytes = response.read()
-        http_string = http_bytes.decode('utf-8')
+        # Set up proxy
+        proxy = 'gate.smartproxy.com:7000'
+        proxies = {'http': proxy, 'https': proxy}
+
+        # Get page http
+        cookie = f"CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{random.randint(100, 999)}"
+        headers = {'Cookie': cookie}
+        response = requests.get(url, headers=headers, proxies=proxies)
+        http_string = response.text
 
         # Get id from http
         channel_id = find_between(http_string, 'href="https://www.youtube.com/channel/', '"')
@@ -113,11 +117,10 @@ def channel_data(input='https://www.youtube.com/@ImponderabiliaTV/featured'):
 
         for video_id in filtered_list:
             url = f"https://www.youtube.com/watch?v={video_id['contentDetails']['videoId']}"
-            cookie = 'CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(100, 999))
-            req = urllib.request.Request(url, headers={'Cookie': cookie})
-            response = urllib.request.urlopen(req)
-            http_bytes = response.read()
-            http_string = http_bytes.decode('utf-8')
+            cookie = f"CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{random.randint(100, 999)}"
+            headers = {'Cookie': cookie}
+            response = requests.get(url, headers=headers, proxies=proxies)
+            http_string = response.text
             if "paidContentOverlayRenderer" in http_string:
                 videos_ads_list.append(True)
             else:
