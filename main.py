@@ -70,9 +70,10 @@ def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw
         # Get page http
         cookie = f"CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{random.randint(100, 999)}"
         headers = {'Cookie': cookie}
-        response = requests.get(url, headers=headers, proxies=proxies)
+        response = requests.get("https://www.digimind.com/influencers-identification", headers=headers, proxies=proxies)
         http_string = response.text
 
+        print(http_string)
         # Get id from http
         channel_id = find_between(http_string, 'href="https://www.youtube.com/channel/', '"')
 
