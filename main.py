@@ -64,7 +64,7 @@ def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw
 
         # Get page http
         # Set up proxy
-        http_proxy = f"http://user-Grow:Thunders@us.smartproxy.com:10000"
+        http_proxy = f"http://user-Grow-sessionduration-30:Thunders@us.smartproxy.com:10006"
         proxies = {"http": http_proxy}
 
         # Get page http
