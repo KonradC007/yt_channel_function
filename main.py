@@ -64,13 +64,13 @@ def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw
 
         # Get page http
         # Set up proxy
-        proxy = 'http://user-Growth-sessionduration-1:Thunders@gate.smartproxy.com:10000'
-        proxies = {'http': proxy, 'https': proxy}
+        http_proxy = f"http://user-Grow:Thunders@us.smartproxy.com:10000"
+        proxies = {"http": http_proxy}
 
         # Get page http
         cookie = f"CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{random.randint(100, 999)}"
         headers = {'Cookie': cookie}
-        response = requests.get("https://www.digimind.com/influencers-identification", headers=headers, proxies=proxies)
+        response = requests.get(url, headers=headers, proxies=proxies)
         http_string = response.text
 
         print(http_string)
@@ -120,7 +120,7 @@ def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw
             url = f"https://www.youtube.com/watch?v={video_id['contentDetails']['videoId']}"
             cookie = f"CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{random.randint(100, 999)}"
             headers = {'Cookie': cookie}
-            response = requests.get(url, headers=headers, proxies=proxies)
+            response = requests.get(url, headers=headers)
             http_string = response.text
             if "paidContentOverlayRenderer" in http_string:
                 videos_ads_list.append(True)
@@ -140,12 +140,12 @@ def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw
             for comment in vid_comments['items']:
                 comment_author.append(comment['snippet']['topLevelComment']['snippet']['authorDisplayName'])
 
-        #comment_author = list(set(comment_author))
+        comment_author = list(set(comment_author))
 
 
-        #gender_list = guess_gender_parallel(comment_author)
+        gender_list = guess_gender_parallel(comment_author)
 
-        #gender_list_filtered = [n for n in gender_list if n['gender'] != 'unknown']
+        gender_list_filtered = [n for n in gender_list if n['gender'] != 'unknown']
         male_percentage, female_percentage = 1,1#gender_summary_generator(names=gender_list_filtered)
 
         for video in data_videos['items']:
