@@ -71,6 +71,7 @@ def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw
         cookie = f"CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{random.randint(100, 999)}"
         headers = {'Cookie': cookie}
         response = requests.get(url, headers=headers, proxies=proxies)
+        print(response.text)
         http_string = response.text
 
         print(http_string)
