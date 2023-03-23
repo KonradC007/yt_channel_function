@@ -62,15 +62,21 @@ def channel_data(input='https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw
 
         print(url)
 
-        # Get page http
-        # Set up proxy
-        http_proxy = f"http://178.218.130.143:50100"
+        # Configure proxy
+        http_proxy = f"http://user-Growth:Thunders@gate.smartproxy.com:7000"
         proxies = {"http": http_proxy}
+        params = {
+            "hl": "pl",
+            "gl": "pl"
+        }
 
-        # Get page http
-        cookie = f"CONSENT=YES+cb.20210328-17-p0.en-GB+FX+{random.randint(100, 999)}"
-        headers = {'Cookie': cookie}
-        response = requests.get(url, headers=headers, proxies=proxies)
+        # Hit request with search query
+        response = requests.get(url,
+                            cookies={'CONSENT': 'YES+cb.20210328-17-p0.en-GB+FX+{}'.format(random.randint(100, 999))},
+                            proxies=proxies, params=params)
+
+
+
         print(response.text)
         http_string = response.text
 
